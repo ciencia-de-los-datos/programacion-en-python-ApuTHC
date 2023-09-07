@@ -21,7 +21,16 @@ def pregunta_01():
     214
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    rta = 0
+    for fila in lector_csv:
+        rta += int(fila[1])
+        
+    archivo_csv.close()
+
+    return rta
 
 
 def pregunta_02():
@@ -39,7 +48,25 @@ def pregunta_02():
     ]
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letras = {}
+    rta = []
+    for fila in lector_csv:
+        if fila[0] in letras:
+            letras[fila[0]] += 1
+        else:
+            letras[fila[0]] = 1
+    
+    for letra in letras:
+        rta.append((letra, letras[letra]))        
+     
+    rta = sorted(rta, key=lambda x: x[0])   
+    archivo_csv.close()
+    
+    return rta
+
 
 
 def pregunta_03():
@@ -57,7 +84,26 @@ def pregunta_03():
     ]
 
     """
-    return
+    
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letras = {}
+    rta = []
+    for fila in lector_csv:
+        if fila[0] in letras:
+            letras[fila[0]] += int(fila[1])
+        else:
+            letras[fila[0]] = int(fila[1])
+    
+    for letra in letras:
+        rta.append((letra, letras[letra]))        
+     
+    rta = sorted(rta, key=lambda x: x[0])   
+    archivo_csv.close()
+    
+    
+    return rta
 
 
 def pregunta_04():
@@ -82,7 +128,24 @@ def pregunta_04():
     ]
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    meses = {}
+    rta = []
+    for fila in lector_csv:
+        if fila[2].split("-")[1] in meses:
+            meses[fila[2].split("-")[1]] += 1
+        else:
+            meses[fila[2].split("-")[1]] = 1
+    
+    for mes in meses:
+        rta.append((mes, meses[mes]))        
+     
+    rta = sorted(rta, key=lambda x: x[0])   
+    archivo_csv.close()
+    
+    return rta
 
 
 def pregunta_05():
@@ -100,7 +163,29 @@ def pregunta_05():
     ]
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letrasMax = {}
+    letrasMin = {}
+    rta = []
+    for fila in lector_csv:
+        if fila[0] in letrasMax:
+            if letrasMax[fila[0]] < int(fila[1]):
+                letrasMax[fila[0]] = int(fila[1])
+            elif letrasMin[fila[0]] > int(fila[1]):
+                letrasMin[fila[0]] = int(fila[1])
+        else:
+            letrasMax[fila[0]] = int(fila[1])
+            letrasMin[fila[0]] = int(fila[1])
+    
+    for letra in letrasMax:
+        rta.append((letra, letrasMax[letra], letrasMin[letra]))        
+     
+    rta = sorted(rta, key=lambda x: x[0])   
+    archivo_csv.close()
+
+    return rta
 
 
 def pregunta_06():
@@ -125,7 +210,32 @@ def pregunta_06():
     ]
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letrasMax = {}
+    letrasMin = {}
+    rta = []
+    for fila in lector_csv:
+        for par in fila[4].split(","):
+            letra = par.split(":")[0]
+            valor = par.split(":")[1]
+            if letra in letrasMax:
+                if letrasMax[letra] < int(valor):
+                    letrasMax[letra] = int(valor)
+                elif letrasMin[letra] > int(valor):
+                    letrasMin[letra] = int(valor)
+            else:
+                letrasMax[letra] = int(valor)
+                letrasMin[letra] = int(valor)
+    
+    for letra in letrasMax:
+        rta.append((letra, letrasMin[letra], letrasMax[letra]))        
+     
+    rta = sorted(rta, key=lambda x: x[0]) 
+    archivo_csv.close()
+
+    return rta
 
 
 def pregunta_07():
@@ -149,7 +259,25 @@ def pregunta_07():
     ]
 
     """
-    return
+    
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    numeros = {}
+    rta = []
+    for fila in lector_csv:
+        if fila[1] in numeros:
+            numeros[fila[1]] += [fila[0]]
+        else:
+            numeros[fila[1]] = [fila[0]]
+    
+    for number in numeros:
+        rta.append((int(number), numeros[number]))        
+     
+    rta = sorted(rta, key=lambda x: x[0])   
+    archivo_csv.close()
+    
+    return rta
 
 
 def pregunta_08():
@@ -174,7 +302,27 @@ def pregunta_08():
     ]
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    numeros = {}
+    rta = []
+    for fila in lector_csv:
+        if fila[1] in numeros:
+            if fila[0] in numeros[fila[1]]:
+                pass
+            else:
+                numeros[fila[1]] += [fila[0]]
+        else:
+            numeros[fila[1]] = [fila[0]]
+    
+    for number in numeros:
+        rta.append((int(number), sorted(numeros[number], key=lambda x: x[0])))        
+     
+    rta = sorted(rta, key=lambda x: x[0])   
+    archivo_csv.close()
+    
+    return rta
 
 
 def pregunta_09():
@@ -197,7 +345,27 @@ def pregunta_09():
     }
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letras = {}
+    rta = {}
+    for fila in lector_csv:
+        for par in fila[4].split(","):
+            letra = par.split(":")[0]
+            valor = par.split(":")[1]
+            if letra in letras:
+                letras[letra] += 1
+            else:
+                letras[letra] = 1
+    
+    claves_ordenadas = sorted(letras.keys())
+    for clave in claves_ordenadas:
+        rta[clave] = letras[clave]
+        
+    archivo_csv.close()
+    
+    return rta
 
 
 def pregunta_10():
@@ -218,7 +386,16 @@ def pregunta_10():
 
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    rta = []
+    for fila in lector_csv:
+        rta.append((fila[0], len(fila[3].split(",")), len(fila[4].split(","))))  
+
+    archivo_csv.close()
+
+    return rta
 
 
 def pregunta_11():
@@ -239,7 +416,25 @@ def pregunta_11():
 
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letras = {}
+    rta = {}
+    for fila in lector_csv:
+        for letra in fila[3].split(","):
+            if letra in letras:
+                letras[letra] += int(fila[1])
+            else:
+                letras[letra] = int(fila[1])      
+     
+    claves_ordenadas = sorted(letras.keys())
+    for clave in claves_ordenadas:
+        rta[clave] = letras[clave]
+
+    archivo_csv.close()
+
+    return rta
 
 
 def pregunta_12():
@@ -257,4 +452,23 @@ def pregunta_12():
     }
 
     """
-    return
+    import csv
+    archivo_csv = open('data.csv', mode='r')
+    lector_csv = csv.reader(archivo_csv, delimiter="	")
+    letras = {}
+    rta = {}
+    for fila in lector_csv:
+        for par in fila[4].split(","):
+            letra = par.split(":")[0]
+            valor = par.split(":")[1]
+            if fila[0] in letras:
+                letras[fila[0]] += int(valor)
+            else:
+                letras[fila[0]] = int(valor)
+    
+    claves_ordenadas = sorted(letras.keys())
+    for clave in claves_ordenadas:
+        rta[clave] = letras[clave]
+    archivo_csv.close()
+
+    return rta
